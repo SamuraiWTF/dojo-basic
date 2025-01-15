@@ -1,4 +1,4 @@
-# Dockerfile.dojo-basic
+# Dockerfile.dojo-basic-lite
 FROM php:7.4.27-apache-bullseye
 
 # Install dependencies
@@ -17,8 +17,11 @@ RUN mkdir -p /var/www/html/db && \
 
 COPY ./src/basic /var/www/html
 
-# Run reset-db.php script
-RUN php /var/www/html/reset-db.php
+# Add entrypoint script
+COPY .shogun/docker-entrypoint.sh /usr/local/bin/
+RUN chmod +x /usr/local/bin/docker-entrypoint.sh
+
+ENTRYPOINT ["docker-entrypoint.sh"]
 
 LABEL org.opencontainers.image.source=https://github.com/SamuraiWTF/samurai-dojo
 LABEL org.opencontainers.image.description="Basic PHP 7.4.27-apache-bullseye image with dojo-basic with sqlite support."

@@ -1,0 +1,18 @@
+version: '3'
+services:
+  scavengerdb:
+    image: ghcr.io/samuraiwtf/dojo-scavenger-db:latest
+    environment:
+      MYSQL_ROOT_PASSWORD: samurai
+      MYSQL_DATABASE: samurai_dojo_scavenger
+
+  dojo-scavenger:
+    image: ghcr.io/samuraiwtf/dojo-scavenger:latest
+    ports:
+      - "8081:80"
+    links:
+      - scavengerdb
+    depends_on:
+      - scavengerdb
+
+

@@ -1,0 +1,18 @@
+version: '3'
+services:
+  basicdb:
+    image: ghcr.io/samuraiwtf/dojo-basic-db:latest
+    environment:
+      MYSQL_ROOT_PASSWORD: samurai
+      MYSQL_DATABASE: samurai_dojo_basic
+
+  dojo-basic:
+    image: ghcr.io/samuraiwtf/dojo-basic:latest
+    ports:
+      - "8080:80"
+    links:
+      - basicdb
+    depends_on:
+      - basicdb
+
+
